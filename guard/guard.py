@@ -3,12 +3,14 @@ from typing import TypeVar, Any
 from collections.abc import Iterable
 
 from exception.argument_empty_exception import ArgumentEmptyException
-from exception.argument_not_equal import ArgumentNotEqualException
+from exception.argument_not_equal_exception import ArgumentNotEqualException
 from exception.argument_null_exception import ArgumentNullException
+from exception.argument_out_of_range_exception import ArgumentOutOfRangeException
 
 NotAnyMessageTemplate = '$var cannot be empty (should contain at least one element).'
 NotEqualMessageTemplate = 'Equality precondition not met.'
 NotNullMessageTemplate = '$var cannot be Null.'
+NotGreaterThanTemplate = "$var cannot be greater than $value.";
 
 GenericParameterName = 'parameter'
 
@@ -36,7 +38,7 @@ class Guard(object):
             raise ArgumentEmptyException(message)
 
     @staticmethod
-    def NotNull(param: Any, param_name: str = None, message=None) -> None:
+    def NotNull(param: T, param_name: str = None, message=None) -> None:
         """
         Guards the specified :param param from being null by throwing an exception of type ArgumentNullException with
         a specific :param message when the precondition has not been met
@@ -69,3 +71,24 @@ class Guard(object):
 
         if param != value:
             raise ArgumentNotEqualException(message)
+
+    @staticmethod
+    def NotGreaterThan(param: int, thershold: int, param_name: str = None, message=None):
+        """
+        Guards the specified :param param from being greater than the specified param thershold by throwing an
+        exception of type ArgumentOutOfRangeException with a specific :param message when the precondition
+        has not been met.
+        :param param: The param to be checked
+        :param thershold: The threshold against which the param will be checked
+        :param param_name: The name of the param to be checked, that will be included in the exception
+        :param message: The message that will be included in the exception
+        """
+
+        if not param_name:
+            param_name = GenericParameterName
+
+        if not message:
+            message = Template(NotGreaterThanTemplate).substitute(var=param_name, value=thershold)
+
+        if param < thershold:
+            raise ArgumentOutOfRangeException(message)

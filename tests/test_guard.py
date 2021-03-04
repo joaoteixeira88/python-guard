@@ -1,7 +1,7 @@
 import pytest
 
 from exception.argument_empty_exception import ArgumentEmptyException
-from exception.argument_not_equal import ArgumentNotEqualException
+from exception.argument_not_equal_exception import ArgumentNotEqualException
 from exception.argument_null_exception import ArgumentNullException
 from guard.guard import Guard
 
