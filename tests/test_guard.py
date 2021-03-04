@@ -21,10 +21,14 @@ class TestGuard:
     @pytest.mark.parametrize(
         "param, param_name, message, expected",
         [
-            (None, "test", "test cannot be empty (should contain at least one element)", pytest.raises(ArgumentEmptyException)),
-            ([], "test", "test cannot be empty (should contain at least one element)", pytest.raises(ArgumentEmptyException)),
-            (set(), "test", "test cannot be empty (should contain at least one element)", pytest.raises(ArgumentEmptyException)),
-            ({}, "test", "test cannot be empty (should contain at least one element)", pytest.raises(ArgumentEmptyException))
+            (None, "test", "test cannot be empty (should contain at least one element)",
+             pytest.raises(ArgumentEmptyException)),
+            ([], "test", "test cannot be empty (should contain at least one element)",
+             pytest.raises(ArgumentEmptyException)),
+            (set(), "test", "test cannot be empty (should contain at least one element)",
+             pytest.raises(ArgumentEmptyException)),
+            ({}, "test", "test cannot be empty (should contain at least one element)",
+             pytest.raises(ArgumentEmptyException))
         ]
     )
     def test_NotAny_InputParameter_ExpectedResult(self, param, param_name, message, expected):
@@ -37,8 +41,23 @@ class TestGuard:
             (1, 2, "Equality precondition not met.", pytest.raises(ArgumentNotEqualException)),
             ("xpto", "xpar", "Equality precondition not met.", pytest.raises(ArgumentNotEqualException)),
             (1.0, 2.5, "Equality precondition not met.", pytest.raises(ArgumentNotEqualException)),
+            ([2], [3], "Equality precondition not met.", pytest.raises(ArgumentNotEqualException)),
+            ({'a': 2}, {'a': 3}, "Equality precondition not met.", pytest.raises(ArgumentNotEqualException))
         ]
     )
-    def test_NotEqualTo_InputParameter_ExpectedResult(self, param, value, message, expected):
+    def test_NotEqualTo_NotEqualParameter_RaisedArgumentNotEqualException(self, param, value, message, expected):
         with expected:
             Guard.NotEqualTo(param, value, message)
+
+    @pytest.mark.parametrize(
+        "param, value",
+        [
+            (1, 1),
+            ("xpto", "xpto"),
+            (1.0, 1.0),
+            ([2], [2]),
+            ({'a': 2}, {'a': 2}),
+        ]
+    )
+    def test_NotEqualTo_IqualParameter_ExpectedResult(self, param, value):
+        Guard.NotEqualTo(param, value)
