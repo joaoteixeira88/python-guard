@@ -1,9 +1,11 @@
+import re
 from string import Template
 from typing import TypeVar, Any
 from collections.abc import Iterable
 
 from constants.templates import Templates
 from exception.argument_empty_exception import ArgumentEmptyException
+from exception.argument_exception import ArgumentException
 from exception.argument_not_equal_exception import ArgumentNotEqualException
 from exception.argument_not_instance_of_exception import ArgumentNotInstanceOfException
 from exception.argument_not_null_exception import ArgumentNotNullException
@@ -33,8 +35,28 @@ class Guard(object):
         if not message:
             message = Template(Templates.NotAnyMessage).substitute(var=param_name)
 
-        if not param or len(param_name) == 0:
+        if not param or len(param) == 0:
             raise ArgumentEmptyException(message)
+
+    @staticmethod
+    def MinCount(param: Iterable, threshold: int, param_name: str = None, message=None) -> None:
+        """
+        Guards the specified :param param from containing lesse elements than :param threshold by throwing
+        an exception of type ArgumentException with a specific :param message when the precondition has not been met
+        :param param: The param to be checked
+        :param threshold: The threshold against which the param will be checked
+        :param param_name: The name of the param to be checked, that will be included in the exception
+        :param message: The message that will be included in the exception
+        """
+
+        if not param_name:
+            param_name = GenericParameterName
+
+        if not message:
+            message = Template(Templates.MinCountMessage).substitute(var=param_name, value=threshold)
+
+        if len(param) < threshold:
+            raise ArgumentException(message)
 
     @staticmethod
     def NotNull(param: T, param_name: str = None, message=None) -> None:
@@ -91,13 +113,13 @@ class Guard(object):
             raise ArgumentNotEqualException(message)
 
     @staticmethod
-    def NotGreaterThan(param: int, thershold: int, param_name: str = None, message=None):
+    def NotGreaterThan(param: int, threshold: int, param_name: str = None, message=None):
         """
         Guards the specified :param param from being greater than the specified param thershold by throwing an
         exception of type ArgumentOutOfRangeException with a specific :param message when the precondition
         has not been met.
         :param param: The param to be checked
-        :param thershold: The threshold against which the param will be checked
+        :param threshold: The threshold against which the param will be checked
         :param param_name: The name of the param to be checked, that will be included in the exception
         :param message: The message that will be included in the exception
         """
@@ -106,9 +128,9 @@ class Guard(object):
             param_name = GenericParameterName
 
         if not message:
-            message = Template(Templates.NotGreaterThan).substitute(var=param_name, value=thershold)
+            message = Template(Templates.NotGreaterThanMessage).substitute(var=param_name, value=threshold)
 
-        if param > thershold:
+        if param > threshold:
             raise ArgumentOutOfRangeException(message)
 
     @staticmethod
@@ -127,7 +149,7 @@ class Guard(object):
             param_name = GenericParameterName
 
         if not message:
-            message = Template(Templates.NotLessThan).substitute(var=param_name, value=thershold)
+            message = Template(Templates.NotLessThanMessage).substitute(var=param_name, value=thershold)
 
         if param < thershold:
             raise ArgumentOutOfRangeException(message)
@@ -147,7 +169,26 @@ class Guard(object):
             param_name = GenericParameterName
 
         if not message:
-            message = Template(Templates.NotInstanceOfType).substitute(var=param_name, typeof=type)
+            message = Template(Templates.NotInstanceOfTypeMessage).substitute(var=param_name, type=typeof)
 
         if typeof(param) != typeof:
             raise ArgumentNotInstanceOfException(message)
+
+    @staticmethod
+    def EmailNotValid(param: str, param_name: str = None, message=None):
+        """
+        Guards the specified :param param from being an invalid email by throwing an
+        exception of type ArgumentException with a specific :param message when the precondition
+        has not been met.
+        :param param: The param to be checked
+        :param param_name: The name of the param to be checked, that will be included in the exception
+        :param message: The message that will be included in the exception
+        """
+        if not param_name:
+            param_name = GenericParameterName
+
+        if not message:
+            message = Template(Templates.NotValidEmailMessage).substitute(var=param_name)
+
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", param):
+            raise ArgumentException(message)

@@ -3,10 +3,6 @@
 Guard is a fluent argument validation library that is intuitive, fast and extensible.
 
 
-```
-Give examples
-```
-
 ### Installing
 
 To run this project, I advise to user virtualenv. The project requires python == 3.6.

@@ -1,6 +1,7 @@
 import pytest
 
 from exception.argument_empty_exception import ArgumentEmptyException
+from exception.argument_exception import ArgumentException
 from exception.argument_not_equal_exception import ArgumentNotEqualException
 from exception.argument_not_instance_of_exception import ArgumentNotInstanceOfException
 from exception.argument_not_null_exception import ArgumentNotNullException
@@ -79,12 +80,13 @@ class TestGuard:
     @pytest.mark.parametrize(
         "param, value, param_name, message, expected",
         [
-            (2, 1,  None, "param cannot be greater than 1.", pytest.raises(ArgumentOutOfRangeException)),
-            (5.43345, 3.3434, "test", "test cannot be greater than 3.3434.", pytest.raises(ArgumentOutOfRangeException)),
+            (2, 1, None, "param cannot be greater than 1.", pytest.raises(ArgumentOutOfRangeException)),
+            (
+            5.43345, 3.3434, "test", "test cannot be greater than 3.3434.", pytest.raises(ArgumentOutOfRangeException)),
         ]
     )
     def test_NotGreaterThan_GreaterThanThreshsold_RaisedArgumentOutOfRangeException(self, param, value, param_name,
-                                                                                  message, expected):
+                                                                                    message, expected):
         with expected:
             Guard.NotGreaterThan(param, value, param_name, message)
 
@@ -95,34 +97,39 @@ class TestGuard:
             (3.43345, 5.3434)
         ]
     )
-    def test_NotGreaterThan_LowerThanThreshsold_RaisedArgumentOutOfRangeException(self, param, value):
+    def test_NotGreaterThan_LowerThanThreshold_RaisedArgumentOutOfRangeException(self, param, value):
         Guard.NotGreaterThan(param, value)
 
     @pytest.mark.parametrize(
         "param, typeof, param_name, message, expected",
         [
-            (2, str, None, "param is not from str.", pytest.raises(ArgumentNotInstanceOfException)),
-            ([], dict, None, "param is not from dict.", pytest.raises(ArgumentNotInstanceOfException)),
-            ("test", bool, None, "param is not from str.", pytest.raises(ArgumentNotInstanceOfException))
+            (2, str, None, "parameter is not from type <class 'str'>.", pytest.raises(ArgumentNotInstanceOfException)),
+            ([], dict, None, "parameter is not from type <class 'dict'>.", pytest.raises(ArgumentNotInstanceOfException)),
+            ("test", bool, None, "parameter is not from type <class 'bool'>.", pytest.raises(ArgumentNotInstanceOfException))
         ]
     )
-    def test_IsNotInstanceOfType_InvalidType_RaisedArgumentNotInstanceOfExceptionn(self, param, typeof, param_name,
-                                                                                   message, expected):
-        with expected:
-            Guard.IsNotInstanceOfType(param, typeof, param_name, message)
+    def test_IsNotInstanceOfType_InvalidType_RaisedArgumentNotInstanceOfException(self, param, typeof, param_name,
+                                                                                  message, expected):
+        with expected as err:
+            Guard.IsNotInstanceOfType(param=param, typeof=typeof, param_name=param_name)
+
+        assert message in str(err.value)
 
     @pytest.mark.parametrize(
         "param, value, param_name, message, expected",
         [
-            (1, 2, None, "param cannot be greater than 1.", pytest.raises(ArgumentOutOfRangeException)),
+            (1, 2, None, "parameter cannot be greater than 1.", pytest.raises(ArgumentOutOfRangeException)),
             (
-            3.43345, 5.3434, "test", "test cannot be greater than 3.3434.", pytest.raises(ArgumentOutOfRangeException)),
+                    3.43345, 5.3434, "test", "test cannot be greater than 3.3434.",
+                    pytest.raises(ArgumentOutOfRangeException)),
         ]
     )
-    def test_NotLessThan_LessThanThreshsold_RaisedArgumentOutOfRangeException(self, param, value, param_name,
-                                                                                    message, expected):
-        with expected:
-            Guard.NotLessThan(param, value, param_name, message)
+    def test_NotLessThan_LessThanThreshold_RaisedArgumentOutOfRangeException(self, param, value, param_name,
+                                                                             message, expected):
+        with expected as err:
+            Guard.NotLessThan(param=param, thershold=value, param_name=param_name)
+
+        assert message in str(err.value)
 
     @pytest.mark.parametrize(
         "param, value",
@@ -131,5 +138,35 @@ class TestGuard:
             (5.43345, 3.3434)
         ]
     )
-    def test_NotLessThan_GreaterThanThreshsold_RaisedArgumentOutOfRangeException(self, param, value):
-        Guard.NotLessThan(param, value)
+    def test_NotLessThan_GreaterThanThreshold_RaisedArgumentOutOfRangeException(self, param, value):
+        Guard.NotLessThan(param=param, thershold=value)
+
+    @pytest.mark.parametrize(
+        "param, param_name, message, expected",
+        [
+            ("x.pt", None, "parameter is not a valid email.", pytest.raises(ArgumentException)),
+            ("xxx@aa", None, "parameter is not a valid email.", pytest.raises(ArgumentException)),
+            ("@", None, "parameter is not a valid email.", pytest.raises(ArgumentException)),
+            ("xxxxx", None, "parameter is not a valid email.", pytest.raises(ArgumentException))
+        ]
+    )
+    def test_EmailNotValid_InvalidEmail_RaisedArgumentException(self, param, param_name, message, expected):
+        with expected as err:
+            Guard.EmailNotValid(param=param, param_name=param_name)
+
+        assert message in str(err.value)
+
+    @pytest.mark.parametrize(
+        "param, value, param_name, message, expected",
+        [
+            ([], 2, None, "parameter must have at least 2 elements.", pytest.raises(ArgumentException)),
+            ({"a": 1}, 2, None, "parameter must have at least 2 elements.", pytest.raises(ArgumentException)),
+            ({1, 2, 3}, 20, None, "parameter must have at least 20 elements.", pytest.raises(ArgumentException))
+        ]
+    )
+    def test_NotLessThan_LessThanThreshold_RaisedArgumentOutOfRangeException(self, param, value, param_name,
+                                                                             message, expected):
+        with expected as err:
+            Guard.MinCount(param=param, threshold=value, param_name=param_name)
+
+        assert message in str(err.value)
