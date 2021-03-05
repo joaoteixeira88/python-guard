@@ -3,6 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name='pyguard',
     packages=find_packages(),
+    python_requires='>3.0',
     version='0.0.1',
     author='Joao Teixeira',
     url='https://github.com/joaoteixeira88/pyguard',

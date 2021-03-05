@@ -7,3 +7,4 @@ class Templates:
     NotInstanceOfTypeMessage = "$var is not from type $type."
     NotValidEmailMessage = "$var is not a valid email."
     MinCountMessage = "$var must have at least $value elements."
+    NotInfinityNumberMessage = "%var is not an infinity number."

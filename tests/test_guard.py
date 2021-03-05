@@ -7,7 +7,7 @@ from exception.argument_not_instance_of_exception import ArgumentNotInstanceOfEx
 from exception.argument_not_null_exception import ArgumentNotNullException
 from exception.argument_null_exception import ArgumentNullException
 from exception.argument_out_of_range_exception import ArgumentOutOfRangeException
-from guard.guard import Guard
+from guard import Guard
 
 
 class TestGuard:
