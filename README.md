@@ -22,6 +22,8 @@ python setup.py install
 Here's some examples how to use this package:
 
 ```
+from guard import Guard
+
 Guard.NotNull(None) # Not Null Guard without parameter name and message
 Guard.NotLessThan(-1, 0, "age") # Not Less Than Guard with parameter name and without custom message
 Guard.NotAny([], "ags_lst", "This list must be at least one element.") # Not Any Guard with custom message

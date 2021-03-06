@@ -28,7 +28,7 @@ def NotAny(param: Iterable, param_name: str = None, message=None) -> None:
 
 def MinCount(param: Iterable, threshold: int, param_name: str = None, message=None) -> None:
     """
-    Guards the specified :param param from containing lesse elements than :param threshold by throwing
+    Guards the specified :param param from containing less elements than :param threshold by throwing
     an exception of type ArgumentException with a specific :param message when the precondition has not been met
     :param param: The param to be checked
     :param threshold: The threshold against which the param will be checked
