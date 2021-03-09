@@ -13,4 +13,5 @@ class Templates:
     NaNMessage = "$var is not an NaN."
     LengthNotGreaterThanMessage = "$var length cannot be greater than $value."
     LengthNotLessThanMessage = "$var length cannot be less than $value."
-    NotInMessage = "$var does not contain the $value."
+    NotInMessage = "Collection does not contain the $value."
+    ContainDuplicatedMessage = "The collection have duplicated elements."

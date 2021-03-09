@@ -6,7 +6,7 @@ from exception.argument_null_exception import ArgumentNullException
 from guard.configurations import T, GenericParameterName
 
 
-def NotNull(param: T, param_name: str = None, message=None) -> None:
+def not_null(param: T, param_name: str = None, message=None) -> None:
     """
     Guards the specified :param param from being null by throwing an exception of type ArgumentNullException with
     a specific :param message when the precondition has not been met
@@ -25,7 +25,7 @@ def NotNull(param: T, param_name: str = None, message=None) -> None:
         raise ArgumentNullException(message)
 
 
-def Null(param: T, param_name: str = None, message=None) -> None:
+def null(param: T, param_name: str = None, message=None) -> None:
     """
     Guards the specified :param param from not being null by throwing an exception of type
     ArgumentNotNullException with a specific :param message when the precondition has not been met

@@ -14,7 +14,7 @@ from guard import Guard
 )
 def test_NotNull_InputParameter_ExpectedResult(param, param_name, message, expected):
     with expected:
-        Guard.NotNull(param, param_name, message)
+        Guard.not_null(param, param_name, message)
 
 
 @pytest.mark.parametrize(
@@ -26,4 +26,4 @@ def test_NotNull_InputParameter_ExpectedResult(param, param_name, message, expec
 )
 def test_Null_InputParameter_RaiseArgumentNotNullException(param, param_name, message, expected):
     with expected:
-        Guard.Null(param, param_name, message)
+        Guard.null(param, param_name, message)

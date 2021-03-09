@@ -6,7 +6,7 @@ from exception.argument_out_of_range_exception import ArgumentOutOfRangeExceptio
 GenericParameterName = 'parameter'
 
 
-def NotGreaterThan(param: int, threshold: int, param_name: str = None, message=None):
+def not_greater_than(param: int, threshold: int, param_name: str = None, message=None):
     """
     Guards the specified :param param from being greater than the specified param thershold by throwing an
     exception of type ArgumentOutOfRangeException with a specific :param message when the precondition
@@ -27,7 +27,7 @@ def NotGreaterThan(param: int, threshold: int, param_name: str = None, message=N
         raise ArgumentOutOfRangeException(message)
 
 
-def NotLessThan(param: int, thershold: int, param_name: str = None, message=None):
+def not_less_than(param: int, thershold: int, param_name: str = None, message=None):
     """
     Guards the specified :param param from being less than the specified param thershold by throwing an
     exception of type ArgumentOutOfRangeException with a specific :param message when the precondition

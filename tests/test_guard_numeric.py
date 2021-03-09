@@ -16,7 +16,7 @@ from guard import Guard
 def test_NotGreaterThan_GreaterThanThreshsold_RaisedArgumentOutOfRangeException(param, value, param_name,
                                                                                 message, expected):
     with expected:
-        Guard.NotGreaterThan(param, value, param_name, message)
+        Guard.not_greater_than(param, value, param_name, message)
 
 
 @pytest.mark.parametrize(
@@ -27,7 +27,7 @@ def test_NotGreaterThan_GreaterThanThreshsold_RaisedArgumentOutOfRangeException(
     ]
 )
 def test_NotGreaterThan_LowerThanThreshold_RaisedArgumentOutOfRangeException(param, value):
-    Guard.NotGreaterThan(param, value)
+    Guard.not_greater_than(param, value)
 
 
 @pytest.mark.parametrize(
@@ -42,7 +42,7 @@ def test_NotGreaterThan_LowerThanThreshold_RaisedArgumentOutOfRangeException(par
 def test_NotLessThan_LessThanThreshold_RaisedArgumentOutOfRangeException(param, value, param_name,
                                                                          message, expected):
     with expected as err:
-        Guard.NotLessThan(param=param, thershold=value, param_name=param_name)
+        Guard.not_less_than(param=param, thershold=value, param_name=param_name)
 
     assert message in str(err.value)
 
@@ -55,4 +55,4 @@ def test_NotLessThan_LessThanThreshold_RaisedArgumentOutOfRangeException(param, 
     ]
 )
 def test_NotLessThan_GreaterThanThreshold_RaisedArgumentOutOfRangeException(param, value):
-    Guard.NotLessThan(param=param, thershold=value)
+    Guard.not_less_than(param=param, thershold=value)

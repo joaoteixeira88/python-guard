@@ -7,7 +7,7 @@ from exception.argument_exception import ArgumentException
 from guard.configurations import GenericParameterName
 
 
-def NotAny(param: Iterable, param_name: str = None, message=None) -> None:
+def not_any(param: Iterable, param_name: str = None, message=None) -> None:
     """
     Guards the specified :param param from containing no elements by throwing an exception of type
     ArgumentEmptyException with a specific :param message when the precondition has not been met
@@ -26,7 +26,7 @@ def NotAny(param: Iterable, param_name: str = None, message=None) -> None:
         raise ArgumentEmptyException(message)
 
 
-def MinCount(param: Iterable, threshold: int, param_name: str = None, message=None) -> None:
+def min_count(param: Iterable, threshold: int, param_name: str = None, message=None) -> None:
     """
     Guards the specified :param param from containing less elements than :param threshold by throwing
     an exception of type ArgumentException with a specific :param message when the precondition has not been met
@@ -44,3 +44,19 @@ def MinCount(param: Iterable, threshold: int, param_name: str = None, message=No
 
     if len(param) < threshold:
         raise ArgumentException(message)
+
+
+def contains_duplicated(param: Iterable, message=None):
+    """
+    Guards the specified :param param from having duplicated values by throwing
+    an exception of type ArgumentException with a specific :param message when the precondition has not been met
+    :param param: The param to be checked
+    :param message: The message that will be included in the exception
+    """
+
+    if not message:
+        message = Template(Templates.ContainDuplicatedMessage).substitute()
+
+    if len(param) != len(set(param)):
+        raise ArgumentException(message)
+

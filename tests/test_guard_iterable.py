@@ -20,7 +20,7 @@ from guard import Guard
 )
 def test_NotAny_InputParameter_ExpectedResult(param, param_name, message, expected):
     with expected:
-        Guard.NotAny(param, param_name, message)
+        Guard.not_any(param, param_name, message)
 
 
 @pytest.mark.parametrize(
@@ -31,9 +31,23 @@ def test_NotAny_InputParameter_ExpectedResult(param, param_name, message, expect
         ({1, 2, 3}, 20, None, "parameter must have at least 20 elements.", pytest.raises(ArgumentException))
     ]
 )
-def test_NotLessThan_LessThanThreshold_RaisedArgumentOutOfRangeException(param, value, param_name,
+def test_NotLessThan_LessThanThreshold_RaisedArgumentException(param, value, param_name,
                                                                          message, expected):
     with expected as err:
-        Guard.MinCount(param=param, threshold=value, param_name=param_name)
+        Guard.min_count(param=param, threshold=value, param_name=param_name)
+
+    assert message in str(err.value)
+
+
+@pytest.mark.parametrize(
+    "param, message, expected",
+    [
+        ([1, 2, 3, 1], "The collection have duplicated elements.", pytest.raises(ArgumentException)),
+        (["test", "test"], "The collection have duplicated elements.", pytest.raises(ArgumentException))
+    ]
+)
+def test_ContainsDuplicated_DuplicatedElements_RaisedArgumentException(param, message, expected):
+    with expected as err:
+        Guard.contains_duplicated(param=param)
 
     assert message in str(err.value)

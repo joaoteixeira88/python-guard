@@ -15,6 +15,6 @@ from guard import Guard
 def test_IsNotInstanceOfType_InvalidType_RaisedArgumentNotInstanceOfException(param, typeof, param_name,
                                                                               message, expected):
     with expected as err:
-        Guard.IsNotInstanceOfType(param=param, typeof=typeof, param_name=param_name)
+        Guard.is_not_instance_of_type(param=param, typeof=typeof, param_name=param_name)
 
     assert message in str(err.value)

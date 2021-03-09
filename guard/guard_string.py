@@ -7,7 +7,7 @@ from exception.argument_out_of_range_exception import ArgumentOutOfRangeExceptio
 from guard.configurations import GenericParameterName
 
 
-def EmailNotValid(param: str, param_name: str = None, message=None):
+def email_not_valid(param: str, param_name: str = None, message=None):
     """
     Guards the specified :param param from being an invalid email by throwing an
     exception of type ArgumentException with a specific :param message when the precondition
@@ -26,7 +26,7 @@ def EmailNotValid(param: str, param_name: str = None, message=None):
         raise ArgumentException(message)
 
 
-def LengthNotGreaterThan(param: str, threshold: int, param_name: str = None, message=None):
+def length_not_greater_than(param: str, threshold: int, param_name: str = None, message=None):
     """
     Guards the specified :param param from having a length greater than the specified param threshold by throwing an
     exception of type ArgumentOutOfRangeException with a specific :param message when the precondition
@@ -47,7 +47,7 @@ def LengthNotGreaterThan(param: str, threshold: int, param_name: str = None, mes
         raise ArgumentOutOfRangeException(message)
 
 
-def LengthNotLessThan(param: str, threshold: int, param_name: str = None, message=None):
+def length_not_less_than(param: str, threshold: int, param_name: str = None, message=None):
     """
     Guards the specified :param param from having a length less than the specified param threshold by throwing an
     exception of type ArgumentOutOfRangeException with a specific :param message when the precondition
@@ -66,3 +66,6 @@ def LengthNotLessThan(param: str, threshold: int, param_name: str = None, messag
 
     if len(param) < threshold:
         raise ArgumentOutOfRangeException(message)
+
+
+# def IsNotWhiteSpace

@@ -1,6 +1,7 @@
 import pytest
 
 from exception.argument_exception import ArgumentException
+from exception.argument_out_of_range_exception import ArgumentOutOfRangeException
 from guard import Guard
 
 
@@ -15,6 +16,20 @@ from guard import Guard
 )
 def test_EmailNotValid_InvalidEmail_RaisedArgumentException(param, param_name, message, expected):
     with expected as err:
-        Guard.EmailNotValid(param=param, param_name=param_name)
+        Guard.email_not_valid(param=param, param_name=param_name)
 
     assert message in str(err.value)
+
+
+def test_LengthNotGreaterThan_InvalidLength_RaisedArgumentOutOfRangeException():
+    with pytest.raises(ArgumentOutOfRangeException) as err:
+        Guard.length_not_greater_than(param=[1, 2, 3, 4], threshold=2, param_name=None)
+
+    assert "parameter length cannot be greater than 2." in str(err.value)
+
+
+def test_LengthNotLessThan_InvalidLength_RaisedArgumentOutOfRangeException():
+    with pytest.raises(ArgumentOutOfRangeException) as err:
+        Guard.length_not_less_than(param=[1, 2, 3, 4], threshold=10, param_name=None)
+
+    assert "parameter length cannot be less than 10." in str(err.value)

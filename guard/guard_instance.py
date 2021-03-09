@@ -6,7 +6,7 @@ from exception.argument_not_instance_of_exception import ArgumentNotInstanceOfEx
 from guard.configurations import T, GenericParameterName
 
 
-def IsNotInstanceOfType(param: T, typeof: Any,  param_name: str = None, message=None):
+def is_not_instance_of_type(param: T, typeof: Any, param_name: str = None, message=None):
     """
     Guards the specified :param param type from being different from the :param typeof by throwing an
     exception of type ArgumentNotInstanceOfException with a specific :param message when the precondition

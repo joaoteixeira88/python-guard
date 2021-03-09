@@ -1,6 +1,7 @@
 import pytest
 
 from exception.argument_not_equal_exception import ArgumentNotEqualException
+from exception.no_such_element_exception import NoSuchElementException
 from guard import Guard
 
 @pytest.mark.parametrize(
@@ -15,7 +16,7 @@ from guard import Guard
 )
 def test_NotEqualTo_NotEqualParameter_RaisedArgumentNotEqualException(param, value, message, expected):
     with expected:
-        Guard.NotEqualTo(param, value, message)
+        Guard.not_equal_to(param, value, message)
 
 
 @pytest.mark.parametrize(
@@ -29,4 +30,19 @@ def test_NotEqualTo_NotEqualParameter_RaisedArgumentNotEqualException(param, val
     ]
 )
 def test_NotEqualTo_IqualParameter_ExpectedResult(param, value):
-    Guard.NotEqualTo(param, value)
+    Guard.not_equal_to(param, value)
+
+
+@pytest.mark.parametrize(
+    "param, value, message, expected",
+    [
+        ([1, 3, 5], 2, "Collection does not contain the 2", pytest.raises(NoSuchElementException)),
+        ("a new test", "xxxx", "Collection does not contain the xxxx", pytest.raises(NoSuchElementException)),
+        ({'a': 2}, "b", "Collection does not contain the b", pytest.raises(NoSuchElementException)),
+    ]
+)
+def test_NotIn_MissingValues_RaisedNoSuchElementException(param, value, message, expected):
+    with expected as err:
+        Guard.not_in(param, value)
+
+    assert message in str(err.value)
