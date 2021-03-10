@@ -33,3 +33,10 @@ def test_LengthNotLessThan_InvalidLength_RaisedArgumentOutOfRangeException():
         Guard.length_not_less_than(param=[1, 2, 3, 4], threshold=10, param_name=None)
 
     assert "parameter length cannot be less than 10." in str(err.value)
+
+
+def test_IsNotWhiteSpace_StringWithLetters_RaisedArgumentException():
+    with pytest.raises(ArgumentException) as err:
+        Guard.is_not_white_space(param="      ", param_name=None)
+
+    assert "parameter is not a whitespace." in str(err.value)

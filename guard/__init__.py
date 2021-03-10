@@ -5,4 +5,4 @@ class Guard:
     from .guard_iterable import min_count, not_any, contains_duplicated
     from .guard_null import not_null, null
     from .guard_numeric import not_greater_than, not_less_than
-    from .guard_string import email_not_valid, length_not_greater_than, length_not_less_than
+    from .guard_string import email_not_valid, length_not_greater_than, length_not_less_than, is_not_white_space

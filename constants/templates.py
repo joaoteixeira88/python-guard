@@ -15,3 +15,4 @@ class Templates:
     LengthNotLessThanMessage = "$var length cannot be less than $value."
     NotInMessage = "Collection does not contain the $value."
     ContainDuplicatedMessage = "The collection have duplicated elements."
+    NotWhitespaceMessage = "$var is not a whitespace."
