@@ -20,10 +20,10 @@ def not_any(param: Iterable, param_name: str = None, message=None) -> None:
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotAnyMessage).substitute(var=param_name)
+        message = Template(template=Templates.NotAnyMessage).substitute(var=param_name)
 
     if not param or len(param) == 0:
-        raise ArgumentEmptyException(message)
+        raise ArgumentEmptyException(message=message)
 
 
 def min_count(param: Iterable, threshold: int, param_name: str = None, message=None) -> None:
@@ -40,10 +40,10 @@ def min_count(param: Iterable, threshold: int, param_name: str = None, message=N
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.MinCountMessage).substitute(var=param_name, value=threshold)
+        message = Template(template=Templates.MinCountMessage).substitute(var=param_name, value=threshold)
 
     if len(param) < threshold:
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)
 
 
 def contains_duplicated(param: Iterable, message=None):
@@ -55,8 +55,8 @@ def contains_duplicated(param: Iterable, message=None):
     """
 
     if not message:
-        message = Template(Templates.ContainDuplicatedMessage).substitute()
+        message = Template(template=Templates.ContainDuplicatedMessage).substitute()
 
     if len(param) != len(set(param)):
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)
 

@@ -16,7 +16,7 @@ from guard import Guard
 )
 def test_NotEqualTo_NotEqualParameter_RaisedArgumentNotEqualException(param, value, message, expected):
     with expected:
-        Guard.not_equal_to(param, value, message)
+        Guard.not_equal_to(param=param, value=value, message=message)
 
 
 @pytest.mark.parametrize(
@@ -30,7 +30,7 @@ def test_NotEqualTo_NotEqualParameter_RaisedArgumentNotEqualException(param, val
     ]
 )
 def test_NotEqualTo_IqualParameter_ExpectedResult(param, value):
-    Guard.not_equal_to(param, value)
+    Guard.not_equal_to(param=param, value=value)
 
 
 @pytest.mark.parametrize(
@@ -43,6 +43,6 @@ def test_NotEqualTo_IqualParameter_ExpectedResult(param, value):
 )
 def test_NotIn_MissingValues_RaisedNoSuchElementException(param, value, message, expected):
     with expected as err:
-        Guard.not_in(param, value)
+        Guard.not_in(param=param, value=value)
 
     assert message in str(err.value)

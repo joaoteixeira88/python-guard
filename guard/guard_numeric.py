@@ -21,10 +21,10 @@ def not_greater_than(param: int, threshold: int, param_name: str = None, message
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotGreaterThanMessage).substitute(var=param_name, value=threshold)
+        message = Template(template=Templates.NotGreaterThanMessage).substitute(var=param_name, value=threshold)
 
     if param > threshold:
-        raise ArgumentOutOfRangeException(message)
+        raise ArgumentOutOfRangeException(message=message)
 
 
 def not_less_than(param: int, thershold: int, param_name: str = None, message=None):
@@ -42,8 +42,8 @@ def not_less_than(param: int, thershold: int, param_name: str = None, message=No
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotLessThanMessage).substitute(var=param_name, value=thershold)
+        message = Template(template=Templates.NotLessThanMessage).substitute(var=param_name, value=thershold)
 
     if param < thershold:
-        raise ArgumentOutOfRangeException(message)
+        raise ArgumentOutOfRangeException(message=message)
 

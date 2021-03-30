@@ -32,7 +32,7 @@ def not_in(param: T, value: T, message=None):
     """
 
     if not message:
-        message = Template(Templates.NotInMessage).substitute(value=value)
+        message = Template(template=Templates.NotInMessage).substitute(value=value)
 
     if value not in param:
         raise NoSuchElementException(message=message)
