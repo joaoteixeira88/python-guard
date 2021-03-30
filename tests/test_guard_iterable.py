@@ -20,7 +20,7 @@ from guard import Guard
 )
 def test_NotAny_InputParameter_ExpectedResult(param, param_name, message, expected):
     with expected:
-        Guard.not_any(param, param_name, message)
+        Guard.not_any(param=param, param_name=param_name, message=message)
 
 
 @pytest.mark.parametrize(
