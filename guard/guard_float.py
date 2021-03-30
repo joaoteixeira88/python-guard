@@ -19,10 +19,10 @@ def not_infinity_number(param: float, param_name: str = None, message=None):
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.InfinityNumberMessage).substitute(var=param_name)
+        message = Template(template=Templates.InfinityNumberMessage).substitute(var=param_name)
 
     if math.isinf(param):
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)
 
 
 def is_infinity_number(param: float, param_name: str = None, message=None):
@@ -38,10 +38,10 @@ def is_infinity_number(param: float, param_name: str = None, message=None):
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotInfinityNumberMessage).substitute(var=param_name)
+        message = Template(template=Templates.NotInfinityNumberMessage).substitute(var=param_name)
 
     if not math.isinf(param):
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)
 
 
 def not_nan(param: float, param_name: str = None, message=None):
@@ -57,10 +57,10 @@ def not_nan(param: float, param_name: str = None, message=None):
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotNaNMessage).substitute(var=param_name)
+        message = Template(template=Templates.NotNaNMessage).substitute(var=param_name)
 
     if math.isnan(param):
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)
 
 
 def is_nan(param: float, param_name: str = None, message=None):
@@ -76,7 +76,7 @@ def is_nan(param: float, param_name: str = None, message=None):
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NaNMessage).substitute(var=param_name)
+        message = Template(template=Templates.NaNMessage).substitute(var=param_name)
 
     if not math.isnan(param):
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)

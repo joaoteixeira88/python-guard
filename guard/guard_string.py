@@ -20,10 +20,10 @@ def email_not_valid(param: str, param_name: str = None, message=None):
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotValidEmailMessage).substitute(var=param_name)
+        message = Template(template=Templates.NotValidEmailMessage).substitute(var=param_name)
 
     if not re.match(r"[^@]+@[^@]+\.[^@]+", param):
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)
 
 
 def length_not_greater_than(param: str, threshold: int, param_name: str = None, message=None):
@@ -41,10 +41,10 @@ def length_not_greater_than(param: str, threshold: int, param_name: str = None, 
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.LengthNotGreaterThanMessage).substitute(var=param_name, value=threshold)
+        message = Template(template=Templates.LengthNotGreaterThanMessage).substitute(var=param_name, value=threshold)
 
     if len(param) > threshold:
-        raise ArgumentOutOfRangeException(message)
+        raise ArgumentOutOfRangeException(message=message)
 
 
 def length_not_less_than(param: str, threshold: int, param_name: str = None, message=None):
@@ -62,10 +62,10 @@ def length_not_less_than(param: str, threshold: int, param_name: str = None, mes
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.LengthNotLessThanMessage).substitute(var=param_name, value=threshold)
+        message = Template(template=Templates.LengthNotLessThanMessage).substitute(var=param_name, value=threshold)
 
     if len(param) < threshold:
-        raise ArgumentOutOfRangeException(message)
+        raise ArgumentOutOfRangeException(message=message)
 
 
 def is_not_white_space(param: str, param_name: str = None, message=None):
@@ -81,7 +81,7 @@ def is_not_white_space(param: str, param_name: str = None, message=None):
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotWhitespaceMessage).substitute(var=param_name)
+        message = Template(template=Templates.NotWhitespaceMessage).substitute(var=param_name)
 
     if len(param.strip()) <= 0:
-        raise ArgumentException(message)
+        raise ArgumentException(message=message)

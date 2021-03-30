@@ -19,10 +19,10 @@ def not_null(param: T, param_name: str = None, message=None) -> None:
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotNullMessage).substitute(var=param_name)
+        message = Template(template=Templates.NotNullMessage).substitute(var=param_name)
 
     if not param:
-        raise ArgumentNullException(message)
+        raise ArgumentNullException(message=message)
 
 
 def null(param: T, param_name: str = None, message=None) -> None:
@@ -38,7 +38,7 @@ def null(param: T, param_name: str = None, message=None) -> None:
         param_name = GenericParameterName
 
     if not message:
-        message = Template(Templates.NotNullMessage).substitute(var=param_name)
+        message = Template(template=Templates.NotNullMessage).substitute(var=param_name)
 
     if param != None:
-        raise ArgumentNotNullException(message)
+        raise ArgumentNotNullException(message=message)
