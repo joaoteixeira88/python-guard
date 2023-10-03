@@ -13,7 +13,7 @@ It typically does one (or any or all) of the following:
 * Checks for trivial cases, and gets rid of them quickly.
 
 This Guard project allows to add some validations to your method's parameters, such if it is null or not, 
-is greater than a value,....
+is greater than a value,...
 
 
 ### Installing
