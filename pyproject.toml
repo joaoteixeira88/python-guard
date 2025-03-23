@@ -24,7 +24,8 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6"
+python = ">=3.6.1"
 pytest = "*"
 coverage = "*"
 pytest-cov = "*"
+pre-commit = "2.9.2"
