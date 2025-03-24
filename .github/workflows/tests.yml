@@ -31,10 +31,3 @@ jobs:
 
       - name: Run Unit Tests
         run: poetry run pytest --junitxml=report.xml --cov=.
-
-      - name: Upload Coverage Report (Optional)
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}  # Set up this secret in GitHub
-          files: ./report.xml
-          fail_ci_if_error: true
