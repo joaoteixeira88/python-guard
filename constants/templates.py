@@ -16,3 +16,6 @@ class Templates:
     NotInMessage = "Collection does not contain the $value."
     ContainDuplicatedMessage = "The collection have duplicated elements."
     NotWhitespaceMessage = "$var is not a whitespace."
+    NotNegative = "$var is negative."
+    EvenNumber = "$var is even"
+    OddNumber = "$var is odd"
