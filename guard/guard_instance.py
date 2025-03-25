@@ -22,6 +22,8 @@ def is_not_instance_of_type(param: T, typeof: Any, param_name: str = None, messa
     if not message:
         message = Template(template=Templates.NotInstanceOfTypeMessage).substitute(var=param_name, type=typeof)
 
+
+
     if typeof(param) != typeof:
         raise ArgumentNotInstanceOfException(message=message)
 

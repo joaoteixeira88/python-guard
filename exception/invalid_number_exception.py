@@ -1,5 +1,5 @@
 from exception.base_exception import BaseGuardException
 
 
-class ArgumentNullException(BaseGuardException):
+class InvalidNumberxception(BaseGuardException):
     pass

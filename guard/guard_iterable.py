@@ -5,6 +5,7 @@ from constants.templates import Templates
 from exception.argument_empty_exception import ArgumentEmptyException
 from exception.argument_exception import ArgumentException
 from guard.configurations import GenericParameterName
+from guard.helpers import get_param_name, get_message
 
 
 def not_any(param: Iterable, param_name: str = None, message=None) -> None:
@@ -16,11 +17,8 @@ def not_any(param: Iterable, param_name: str = None, message=None) -> None:
     :param message: The message that will be included in the exception
     """
 
-    if not param_name:
-        param_name = GenericParameterName
-
-    if not message:
-        message = Template(template=Templates.NotAnyMessage).substitute(var=param_name)
+    param_name = get_param_name(param_name)
+    message = message or get_message(template=Templates.NotAnyMessage, param_name=param_name)
 
     if not param or len(param) == 0:
         raise ArgumentEmptyException(message=message)
@@ -36,11 +34,8 @@ def min_count(param: Iterable, threshold: int, param_name: str = None, message=N
     :param message: The message that will be included in the exception
     """
 
-    if not param_name:
-        param_name = GenericParameterName
-
-    if not message:
-        message = Template(template=Templates.MinCountMessage).substitute(var=param_name, value=threshold)
+    param_name = get_param_name(param_name)
+    message = message or get_message(template=Templates.MinCountMessage, param_name=param_name, value=threshold)
 
     if len(param) < threshold:
         raise ArgumentException(message=message)
@@ -54,8 +49,7 @@ def contains_duplicated(param: Iterable, message=None):
     :param message: The message that will be included in the exception
     """
 
-    if not message:
-        message = Template(template=Templates.ContainDuplicatedMessage).substitute()
+    message = message or get_message(template=Templates.ContainDuplicatedMessage)
 
     if len(param) != len(set(param)):
         raise ArgumentException(message=message)

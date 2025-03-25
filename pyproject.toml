@@ -14,14 +14,18 @@ classifiers=[
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python s:: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ]
 packages = [
     { include = "guard" }
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6"
+python = ">=3.6.1"
 pytest = "*"
+coverage = "*"
+pytest-cov = "*"
+pre-commit = "2.9.2"

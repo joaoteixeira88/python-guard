@@ -1,0 +1,33 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Adjust based on your project
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH  # Ensure Poetry is in PATH
+
+      - name: Install Dependencies
+        run: poetry install --no-interaction --no-root  # Install project dependencies
+
+      - name: Run Unit Tests
+        run: poetry run pytest --junitxml=report.xml --cov=.
