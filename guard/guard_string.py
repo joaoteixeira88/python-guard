@@ -5,6 +5,7 @@ from constants.templates import Templates
 from exception.argument_exception import ArgumentException
 from exception.argument_out_of_range_exception import ArgumentOutOfRangeException
 from guard.configurations import GenericParameterName
+from guard.helpers import get_param_name, get_message
 
 
 def email_not_valid(param: str, param_name: str = None, message=None):
@@ -16,11 +17,9 @@ def email_not_valid(param: str, param_name: str = None, message=None):
     :param param_name: The name of the param to be checked, that will be included in the exception
     :param message: The message that will be included in the exception
     """
-    if not param_name:
-        param_name = GenericParameterName
 
-    if not message:
-        message = Template(template=Templates.NotValidEmailMessage).substitute(var=param_name)
+    param_name = get_param_name(param_name)
+    message = message or get_message(template=Templates.NotValidEmailMessage, param_name=param_name)
 
     if not re.match(r"[^@]+@[^@]+\.[^@]+", param):
         raise ArgumentException(message=message)
@@ -37,11 +36,8 @@ def length_not_greater_than(param: str, threshold: int, param_name: str = None, 
     :param message: The message that will be included in the exception
     """
 
-    if not param_name:
-        param_name = GenericParameterName
-
-    if not message:
-        message = Template(template=Templates.LengthNotGreaterThanMessage).substitute(var=param_name, value=threshold)
+    param_name = get_param_name(param_name)
+    message = message or get_message(template=Templates.LengthNotGreaterThanMessage, param_name=param_name, value=threshold)
 
     if len(param) > threshold:
         raise ArgumentOutOfRangeException(message=message)
@@ -58,11 +54,9 @@ def length_not_less_than(param: str, threshold: int, param_name: str = None, mes
     :param message: The message that will be included in the exception
     """
 
-    if not param_name:
-        param_name = GenericParameterName
-
-    if not message:
-        message = Template(template=Templates.LengthNotLessThanMessage).substitute(var=param_name, value=threshold)
+    param_name = get_param_name(param_name)
+    message = message or get_message(template=Templates.LengthNotLessThanMessage, param_name=param_name,
+                                     value=threshold)
 
     if len(param) < threshold:
         raise ArgumentOutOfRangeException(message=message)
@@ -77,11 +71,9 @@ def is_not_white_space(param: str, param_name: str = None, message=None):
     :param param_name: The name of the param to be checked, that will be included in the exception
     :param message: The message that will be included in the exception
     """
-    if not param_name:
-        param_name = GenericParameterName
 
-    if not message:
-        message = Template(template=Templates.NotWhitespaceMessage).substitute(var=param_name)
+    param_name = get_param_name(param_name)
+    message = message or get_message(template=Templates.NotWhitespaceMessage, param_name=param_name)
 
     if len(param.strip()) <= 0:
         raise ArgumentException(message=message)

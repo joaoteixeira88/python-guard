@@ -1,7 +1,17 @@
+from string import Template
+
+from guard.configurations import GenericParameterName
+
+
 def get_param_name(param_name: str) -> str:
-    """Returns a default parameter name if not provided."""
     return param_name or GenericParameterName
 
-def get_message(template: Template, param_name: str, value=None) -> str:
+def get_message(template: str, param_name: str = None, **kwargs) -> str:
     """Substitutes template variables with provided values."""
-    return template.substitute(var=param_name, value=value)
+    if not kwargs:
+        return Template(template=template).substitute(var=param_name)
+
+    if not param_name and not kwargs:
+        return Template(template=template).substitute()
+
+    return Template(template=template).substitute(var=param_name, **kwargs)

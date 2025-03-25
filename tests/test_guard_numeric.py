@@ -42,7 +42,7 @@ def test_NotGreaterThan_LowerThanThreshold_RaisedArgumentOutOfRangeException(par
 def test_NotLessThan_LessThanThreshold_RaisedArgumentOutOfRangeException(param, value, param_name,
                                                                          message, expected):
     with expected as err:
-        Guard.not_less_than(param=param, thershold=value, param_name=param_name)
+        Guard.not_less_than(param=param, threshold=value, param_name=param_name)
 
     assert message in str(err.value)
 
@@ -55,4 +55,4 @@ def test_NotLessThan_LessThanThreshold_RaisedArgumentOutOfRangeException(param, 
     ]
 )
 def test_NotLessThan_GreaterThanThreshold_RaisedArgumentOutOfRangeException(param, value):
-    Guard.not_less_than(param=param, thershold=value)
+    Guard.not_less_than(param=param, threshold=value)
